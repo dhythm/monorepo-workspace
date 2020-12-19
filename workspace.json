@@ -1,0 +1,135 @@
+{
+  "version": 2,
+  "projects": {
+    "nxreact": {
+      "root": "apps/nxreact",
+      "sourceRoot": "apps/nxreact/src",
+      "projectType": "application",
+      "targets": {
+        "build": {
+          "executor": "@nrwl/web:build",
+          "outputs": [
+            "{options.outputPath}"
+          ],
+          "options": {
+            "outputPath": "dist/apps/nxreact",
+            "index": "apps/nxreact/src/index.html",
+            "main": "apps/nxreact/src/main.tsx",
+            "polyfills": "apps/nxreact/src/polyfills.ts",
+            "tsConfig": "apps/nxreact/tsconfig.app.json",
+            "assets": [
+              "apps/nxreact/src/favicon.ico",
+              "apps/nxreact/src/assets"
+            ],
+            "styles": [
+              "apps/nxreact/src/styles.css"
+            ],
+            "scripts": [],
+            "webpackConfig": "@nrwl/react/plugins/webpack"
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/nxreact/src/environments/environment.ts",
+                  "with": "apps/nxreact/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "executor": "@nrwl/web:dev-server",
+          "options": {
+            "buildTarget": "nxreact:build"
+          },
+          "configurations": {
+            "production": {
+              "buildTarget": "nxreact:build:production"
+            }
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "apps/nxreact/**/*.{ts,tsx,js,jsx}"
+            ]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": [
+            "coverage/apps/nxreact"
+          ],
+          "options": {
+            "jestConfig": "apps/nxreact/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "nxreact-e2e": {
+      "root": "apps/nxreact-e2e",
+      "sourceRoot": "apps/nxreact-e2e/src",
+      "projectType": "application",
+      "targets": {
+        "e2e": {
+          "executor": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/nxreact-e2e/cypress.json",
+            "tsConfig": "apps/nxreact-e2e/tsconfig.e2e.json",
+            "devServerTarget": "nxreact:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "nxreact:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "apps/nxreact-e2e/**/*.{js,ts}"
+            ]
+          }
+        }
+      }
+    }
+  },
+  "cli": {
+    "defaultCollection": "@nrwl/react"
+  },
+  "generators": {
+    "@nrwl/react": {
+      "application": {
+        "style": "css",
+        "linter": "eslint",
+        "babel": true
+      },
+      "component": {
+        "style": "css"
+      },
+      "library": {
+        "style": "css",
+        "linter": "eslint"
+      }
+    }
+  },
+  "defaultProject": "nxreact"
+}
